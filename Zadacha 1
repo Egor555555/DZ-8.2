@@ -1,0 +1,42 @@
+#Создать оконное приложение для вычисления корней квадратного уравнения. В окне должны отображаться три поля для ввода коэффициентов и кнопка «Вычислить». 
+#Ответ должен выводиться в виде метки. Если коэффициент a  будет равен 0, то вывести сообщение об ошибке («Уравнение не является квадратным»).
+from tkinter import *
+def calculate():
+    try:
+        a = float(a_entry.get())
+        b = float(b_entry.get())
+        c = float(c_entry.get())
+        if a == 0:
+            result_label.config(text="Уравнение не является квадратным")
+        else:
+            D = b**2 - 4*a*c
+            if D < 0:
+                result_label.config(text="Корней нет")
+            elif D == 0:
+                x = -b / (2*a)
+                result_label.config(text=f"Один корень: x = {x}")
+            else:
+                x1 = (-b + D**0.5) / (2*a)
+                x2 = (-b - D**0.5) / (2*a)
+                result_label.config(text=f"Два корня: x1 = {x1}, x2 = {x2}")
+    except ValueError:
+        result_label.config(text="Ошибка ввода")
+root = Tk()
+root.title("Вычисление корней квадратного уравнения")
+a_label = Label(root, text="Коэффициент a:")
+a_label.grid(row=0, column=0, padx=5, pady=5)
+a_entry = Entry(root)
+a_entry.grid(row=0, column=1, padx=5, pady=5)
+b_label = Label(root, text="Коэффициент b:")
+b_label.grid(row=1, column=0, padx=5, pady=5)
+b_entry = Entry(root)
+b_entry.grid(row=1, column=1, padx=5, pady=5)
+c_label = Label(root, text="Коэффициент c:")
+c_label.grid(row=2, column=0, padx=5, pady=5)
+c_entry = Entry(root)
+c_entry.grid(row=2, column=1, padx=5, pady=5)
+calculate_button = Button(root, text="Вычислить", command=calculate)
+calculate_button.grid(row=3, column=0, columnspan=2, padx=5, pady=5)
+result_label = Label(root, text="")
+result_label.grid(row=4, column=0, columnspan=2, padx=5, pady=5)
+root.mainloop()
